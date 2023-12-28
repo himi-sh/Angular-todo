@@ -1,0 +1,18 @@
+<!-- {{todos | json}} -->
+<div class="addItem">
+    New Todo:
+    <input type="text" [(ngModel)]="todoDescription">
+    <input type="date" [(ngModel)]="todoDueDate">
+    <button (click)="addTodo()">Add Todo</button>
+</div>
+
+<div *ngFor="let todo of todoListService?.todos">
+    <!-- <app-item [item]="todo"></app-item>
+     -->
+    <span [ngStyle]="{'text-decoration': (todo.doneDate ? 'line-through' : 'none')}">{{ todo.dueDate | date:'EE, dd.MM.' }} {{ todo.description }}</span>
+    <button (click)="todoListService.toggleDoneStateById(todo.id)">Done</button>
+    <button (click)="todoListService.deleteTodoById(todo.id)">Delete</button>
+</div>
+
+
+<p>Todo: {{ todoListService.getTodos(false).length }}<br/>Done: {{ todoListService.getTodos(true).length }}</p>
